@@ -1,10 +1,7 @@
 # Weevilang
 ---
-weevil is a bug...
----
 
-A very stupid language, with a lot of bugs... you understand
-
+A very stupid language, with a lots of bugs... you understand
 
 types: 
  - Strings: str
