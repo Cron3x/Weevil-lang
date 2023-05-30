@@ -7,7 +7,8 @@ types:
  - Strings: str
  - Void:    void
  - Integer: int
- - ...
+ - float:   float
+ - boolean: bool
 
 ```ini
 ;; This what can be parsed allready
@@ -59,18 +60,20 @@ cool_struct$ (
 
 Tables of reminding:
 
-|   name   | indicator | sure about | impl yet |
-|----------|-----------|------------|----------|
-| function | suffix ´!´|            |    ✅    |
-| struct   | suffix ´$´|     ❌     |    ❌    |
-| keyword  | no suffix |            |    ✅    |
-| vars     | no suffix |     ✅     |    ❌    |
+|   name   | indicator | sure about | implemented |
+|----------|-----------|------------|-------------|
+| function | suffix ´!´|            |      ✅     |
+| struct   | suffix ´$´|     ❌     |      ❌     |
+| keyword  | no suffix |            |      ✅     |
+| vars     | no suffix |     ✅     |      ❌     |
 
 
-| my type | rust type |
-|---------|-----------|
-| int     | i32       |
-| str     | String    |
-| void    | ()        |
+| my type | rust type | implemented |
+|---------|-----------|-------------|
+| int     | i32       |      ✅     | 
+| str     | String    |      ✅     |
+| void    | ()        |      ✅     |
+| float   | f64       |      ❌     |
+| bool    | bool      |      ❌     |
 
 'return' = '=>'
