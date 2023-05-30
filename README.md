@@ -10,9 +10,11 @@ types:
  - ...
 
 ```ini
-;; This is what is working already
+;; This what can be parsed allready
 
 entry!<>:int (
+    puts! "Hello, World!"
+    some_fn! 0
     => 0
 )
 
