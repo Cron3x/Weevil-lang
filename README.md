@@ -1,6 +1,5 @@
 # Weevilang
 ---
-weevil = Rüsselkäfer
 weevil is a bug...
 ---
 
