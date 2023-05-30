@@ -1,0 +1,5 @@
+entry!<>: int (
+    puts! "Hello World!"
+    ex! 0
+    => 0
+)
