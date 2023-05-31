@@ -104,7 +104,7 @@ impl Parser {
         //dbg!(&token);
 
         let has_oparen = match token.kind{
-            TokenKind::OParen => {true},
+            TokenKind::OParen => { true },
             _ => {let e = format!("{}: Opening Paren is missing ({:?})", self.lexer.loc(), &token.kind) ; return Err(e)},
         };
 
@@ -126,8 +126,7 @@ impl Parser {
                     println!("found fn:  {}", name);
 
                     let mut args: Vec<Box<dyn Any>> = vec![];
-                    let mut arg:Option<Box<dyn Any>> = None;
-
+                    let mut arg: (Box<dyn Any>,i32) = (Box::new(1),0);
                     
                     loop {
                         if self.peek_newline() {
@@ -135,26 +134,16 @@ impl Parser {
                         }
 
                         let arg_token = self.next_token();
-
-                        let mut arg_tmp:Option<Box<dyn Any>> = None;
-
                         //TODO: 
 
                         match arg_token.kind{
-                            TokenKind::Number(v) => { arg_tmp = Some(Box::new(v))},
-                            TokenKind::String(v) => { arg_tmp = Some(Box::new(v))},
-                            TokenKind::Coma      => {
-                                if arg_tmp.is_none() {
-                                    panic!("{}: Please use a coma to seperate the arguments", self.lexer.loc());
-                                }
-                                else {
-                                    args.push(arg_tmp.unwrap());
-                                }
-                            }
+                            TokenKind::Number(v) => { args.push(Box::new(v))},
+                            TokenKind::String(v) => { args.push(Box::new(v))},
+                            TokenKind::Coma      => {  }
                             _ => {panic!("{}: {:?}, not implemented (yet)", self.lexer.loc(), arg_token.kind)},
                         };
                     }
-
+                    
                     block.push(StmtKind::FuncallStmt{name, args});
                     
                     //impl jumping to other funktions
