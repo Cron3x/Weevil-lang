@@ -55,6 +55,13 @@ cool_struct$ (
         => a + self.st
     )
 )
+
+cool_enum#(
+    Variant(int)
+    Variant2(String)
+    Variant3(float)
+    Variant4
+)
     
 ```
 

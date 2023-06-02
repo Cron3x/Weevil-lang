@@ -16,7 +16,7 @@ impl fmt::Display for TypeSystem{
 }
 
 impl TypeSystem {
-    pub fn match_type(value: String) -> Result<TypeSystem, String>{ 
+    pub fn into_wivl_type(value: String) -> Result<TypeSystem, String>{ 
         let real_type = match Some(value.as_str()) {
             Some("int")   => Ok(TypeSystem::Integer),
             Some("void")  => Ok(TypeSystem::Void),

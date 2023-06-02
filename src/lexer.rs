@@ -16,7 +16,6 @@ pub struct Lexer{
 impl Lexer{
     pub fn new(file_path: &str) -> Self{
         let file_content = std::fs::read(file_path).unwrap();
-        //TODO: parse strings first, so it doesn't replace \r\n in strings
         let strng = String::from_utf8(file_content).unwrap();
         let content = strng.chars().collect();
 
@@ -46,16 +45,28 @@ impl Lexer{
         let curr_loc:Loc = self.loc();
         let first_char = self.content[self.cur];
         
-        if first_char.is_alphabetic(){
+        if first_char.is_alphabetic() || first_char == '_'{
             let index = self.cur;
 
-            while self.not_empty() && self.content[self.cur].is_alphanumeric(){
+            while self.not_empty() && ( self.content[self.cur].is_alphanumeric() || self.content[self.cur] == '_' ){
                 self.chop_char();
             }
+
             if self.content[self.cur] == '!' {
                 self.chop_char(); 
                 let text = String::from_iter(&self.content)[index..self.cur].to_string();
                 return Ok(Token::new(TokenKind::Function( text ), curr_loc))
+            }
+            
+            if self.content[self.cur] == '#' {
+                self.chop_char(); 
+                let text = String::from_iter(&self.content)[index..self.cur].to_string();
+                return Ok(Token::new(TokenKind::Enum( text ), curr_loc))
+            }
+            if self.content[self.cur] == '$' {
+                self.chop_char(); 
+                let text = String::from_iter(&self.content)[index..self.cur].to_string();
+                return Ok(Token::new(TokenKind::Struct( text ), curr_loc))
             }
 
             let text = String::from_iter(&self.content)[index..self.cur].to_string();
@@ -90,10 +101,8 @@ impl Lexer{
             '=' => {
                 self.chop_char();
                 match self.content[self.cur] {
-                    '>' => {
-                        Some(TokenKind::Return)
-                    },
-                    _   => {eprintln!("not implemented yet"); None}
+                    '>' => Some(TokenKind::Return),
+                    _   => Some(TokenKind::Equals)
                 }
             }
              _  => { None },
@@ -144,11 +153,11 @@ impl Lexer{
         }
     }
 
-    fn not_empty(&self) -> bool{
+    pub fn not_empty(&self) -> bool{
         self.cur < self.content.len()
     }
 
-    fn is_empty(&self) -> bool {
+    pub fn is_empty(&self) -> bool {
         !self.not_empty()
     }
 
@@ -167,8 +176,11 @@ impl Lexer{
 pub enum TokenKind{
     Name(String),
     Function(String),
+    Enum(String),
+    Struct(String),
     Number(i32),
     String(String),
+    Equals,
     OParen,
     CParen,
     OSpiky,

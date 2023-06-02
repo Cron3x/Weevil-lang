@@ -1,5 +1,10 @@
+cool_enum#(
+    TEST
+)
+
 entry!<>: int (
-    puts! "Hello World!"
+    let variable:str = "Hello, World!"
+    puts! variable 
     ex! 0
     => 0
 )
